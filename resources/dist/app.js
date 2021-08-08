@@ -1,0 +1,1 @@
+(()=>{var t;(t=document.createElement("script")).type="text/javascript",t.onload=function(){Nop.init(window.filamentConfig.nop)},t.src="https://nop.is/js/sdk.js",document.querySelector("body").appendChild(t)})();

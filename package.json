@@ -1,0 +1,19 @@
+{
+    "name": "nop-filament",
+    "version": "1.0.0",
+    "description": "Nop integration for Filament admin dashboard",
+    "main": "index.js",
+    "keywords": [
+        "nop",
+        "filament",
+        "filament-admin"
+    ],
+    "author": "Danilo Polani",
+    "devDependencies": {
+        "laravel-mix": "^6.0.13",
+        "postcss": "8.1"
+    },
+    "scripts": {
+        "build": "npx mix --production"
+    }
+}
