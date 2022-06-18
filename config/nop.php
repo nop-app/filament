@@ -34,8 +34,8 @@ return [
     */
     'enabled_routes' => [
         // This route enables all resources of your admin
-        // E.g. /admin/resources/<resource name>/<id or uuid>/edit
-        'admin/resources/[a-z-_]+/[0-9a-z-]+/edit',
+        // E.g. /admin/<resource name>/<id or uuid>/edit
+        'admin/[a-z-_]+/[0-9a-z-]+/edit',
     ],
 
 

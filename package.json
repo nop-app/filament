@@ -15,5 +15,6 @@
     },
     "scripts": {
         "build": "npx mix --production"
-    }
+    },
+    "dependencies": {}
 }

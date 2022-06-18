@@ -3,7 +3,7 @@
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/nop-app/filament.svg?style=flat-square)](https://packagist.org/packages/nop-app/filament)
 [![Total Downloads](https://img.shields.io/packagist/dt/nop-app/filament.svg?style=flat-square)](https://packagist.org/packages/nop-app/filament)
 
-Integrate Nop with [Filament](https://filamentadmin.com). The package will enable Nop on all the edit pages of your Filament admin dashboard, e.g. `/admin/resources/projects/<id>/edit`, preventing multiple users to access the same page simultaneously.
+Integrate Nop with [Filament](https://filamentadmin.com). The package will enable Nop on all the edit pages of your Filament admin dashboard, e.g. `/admin/projects/<id>/edit`, preventing multiple users to access the same page simultaneously.
 
 ## Installation
 
@@ -13,18 +13,10 @@ Install the package via composer:
 composer require nop-app/filament
 ```
 
-Then publish the package config file and assets as well:
+Then publish the package config file:
 
 ```bash
 php artisan vendor:publish --tag=nop-config
-php artisan vendor:publish --tag=nop-assets
-```
-
-### Upgrade
-When upgrading, you may want to republish the assets:
-
-```bash
-php artisan vendor:publish --tag=nop-assets --force
 ```
 
 ## Configuration

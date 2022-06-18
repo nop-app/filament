@@ -2,7 +2,7 @@
     const script = document.createElement('script');
     script.type = 'text/javascript';
     script.onload = function () {
-        Nop.init(window.filamentConfig.nop);
+        Nop.init(window.filamentData.nop);
     };
     script.src = 'https://nop.is/js/sdk.js';
 

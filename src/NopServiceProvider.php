@@ -2,41 +2,39 @@
 
 namespace Nop\Filament;
 
-use Filament\Filament;
+use Filament\PluginServiceProvider;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
-use Spatie\LaravelPackageTools\Package;
-use Spatie\LaravelPackageTools\PackageServiceProvider;
 
-class NopServiceProvider extends PackageServiceProvider
+class NopServiceProvider extends PluginServiceProvider
 {
-    public function configurePackage(Package $package): void
+    public static string $name = 'nop';
+
+    protected array $scripts = [
+        'nop-scripts' => __DIR__ . '/../resources/dist/app.js',
+    ];
+
+    /**
+     * Provide data to the page scripts.
+     *
+     * @return array
+     */
+    protected function getScriptData(): array
     {
-        $package
-            ->name('nop')
-            ->hasAssets()
-            ->hasConfigFile();
-    }
+        $userName = null;
 
-    public function bootingPackage()
-    {
-        Filament::serving(function () {
-            Filament::registerScript($this->package->name, '/vendor/' . $this->package->name . '/app.js');
+        if (($userNameField = Config::get('nop.user_name_field')) && Auth::check()) {
+            $userName = Auth::user()->$userNameField;
+        }
 
-            $userName = null;
-
-            if (($userNameField = Config::get('nop.user_name_field')) && Auth::check()) {
-                $userName = Auth::user()->$userNameField;
-            }
-
-            Filament::provideToScript([
-                'nop' => Config::get('nop.settings') + [
-                    'enabled' => Config::get('nop.enabled', false) && $this->routeEnabled(),
-                    'token' => Config::get('nop.token'),
-                    'user' => $userName,
-                ],
-            ]);
-        });
+        return [
+            'nop' => Config::get('nop.settings') + [
+                'enabled' => Config::get('nop.enabled', false) && $this->isRouteEnabled(),
+                'token' => Config::get('nop.token'),
+                'user' => $userName,
+            ],
+        ];
     }
 
     /**
@@ -44,10 +42,13 @@ class NopServiceProvider extends PackageServiceProvider
      *
      * @return bool
      */
-    protected function routeEnabled(): bool
+    protected function isRouteEnabled(): bool
     {
+        /** @var \Illuminate\Http\Request $request */
+        $request = App::make('request');
+
         foreach (Config::get('nop.enabled_routes') as $pattern) {
-            if (preg_match('#^' . $pattern . '$#i', request()->path())) {
+            if (preg_match('#^' . $pattern . '$#i', $request->path())) {
                 return true;
             }
         }
